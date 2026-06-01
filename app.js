@@ -16,6 +16,7 @@
   let todos = [];
   let nextId = 1;
   let selectedPriority = "normal";
+  let enteringIds = new Set();
 
   const form = document.getElementById("composer");
   const input = document.getElementById("input");
@@ -65,7 +66,9 @@
   });
 
   function addTodo(text, priority) {
-    todos.push({ id: nextId++, text, priority, done: false });
+    const id = nextId++;
+    todos.push({ id, text, priority, done: false });
+    enteringIds.add(id);
   }
 
   function sorted() {
@@ -88,9 +91,15 @@
   function render() {
     list.innerHTML = "";
 
+    let enterIndex = 0;
     sorted().forEach((todo) => {
       const li = document.createElement("li");
       li.className = "item item--" + todo.priority + (todo.done ? " is-done" : "");
+      if (enteringIds.has(todo.id)) {
+        li.classList.add("item--enter");
+        li.style.animationDelay = enterIndex * 0.06 + "s";
+        enterIndex++;
+      }
 
       const check = document.createElement("input");
       check.type = "checkbox";
@@ -137,6 +146,8 @@
       li.append(check, body, del);
       list.appendChild(li);
     });
+
+    enteringIds.clear();
 
     const remaining = todos.filter((t) => !t.done).length;
     empty.classList.toggle("is-hidden", todos.length > 0);
