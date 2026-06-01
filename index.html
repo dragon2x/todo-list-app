@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>할 일</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="global-nav">
+    <span class="global-nav__brand">Tasks</span>
+  </nav>
+
+  <header class="hero">
+    <h1 class="hero__title">할 일</h1>
+    <p class="hero__tagline" id="summary">오늘 할 일을 추가해 보세요.</p>
+  </header>
+
+  <main class="canvas">
+    <form class="composer" id="composer" autocomplete="off">
+      <input
+        class="composer__input"
+        id="input"
+        type="text"
+        placeholder="할 일을 입력하세요"
+        aria-label="할 일 입력"
+      />
+      <div class="composer__priority" role="radiogroup" aria-label="우선순위">
+        <button type="button" class="prio-chip" data-prio="high">높음</button>
+        <button type="button" class="prio-chip is-active" data-prio="normal">보통</button>
+        <button type="button" class="prio-chip" data-prio="low">낮음</button>
+      </div>
+      <button class="btn-primary" type="submit">추가</button>
+    </form>
+
+    <p class="hint">엑셀에서 여러 줄을 복사해 입력창에 붙여넣으면 한 번에 추가됩니다. (2번째 열에 높음/보통/낮음을 두면 우선순위로 인식)</p>
+
+    <ul class="list" id="list"></ul>
+
+    <p class="empty" id="empty">아직 할 일이 없습니다.</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
